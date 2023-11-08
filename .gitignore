@@ -166,3 +166,9 @@ test/UnitTests/obj/Debug/net6.0/UnitTests.GlobalUsings.g.cs
 test/UnitTests/obj/Debug/net6.0/UnitTests.pdb
 test/UnitTests/obj/Debug/net6.0/ref/UnitTests.dll
 test/UnitTests/obj/Debug/net6.0/refint/UnitTests.dll
+src/Calendar/bin
+src/Calendar/obj
+src/main/bin
+src/main/obj
+test/UnitTests/bin
+test/UnitTests/obj
