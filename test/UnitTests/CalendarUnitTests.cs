@@ -157,4 +157,112 @@ public class CalendarUnitTests
         Assert.That(nextDay, Is.EqualTo(new DateOnly(2023, 04, 11)));
     }
 
+    [Test]
+    public void Calendar_GetClosestWorkday_ForNegativeDays_ReturnsCorrectDay()
+    {
+        DateTime inputDate = new(2023, 4, 10);
+        var endDateTime = _calendar.GetClosestWorkday(inputDate, -5.5);
+        Assert.Multiple(() =>
+        {
+            Assert.That(endDateTime.Year, Is.EqualTo(2023));
+            Assert.That(endDateTime.Month, Is.EqualTo(4));
+            Assert.That(endDateTime.Day, Is.EqualTo(3));
+        });
+    }
+
+    [Test]
+    public void Calendar_GetClosestWorkday_ForNegativeDays_SkipsWeekend()
+    {
+        DateTime inputDate = new(2023, 11, 6);
+        var endDateTime = _calendar.GetClosestWorkday(inputDate, -1.5);
+        Assert.Multiple(() =>
+        {
+            Assert.That(endDateTime.Year, Is.EqualTo(2023));
+            Assert.That(endDateTime.Month, Is.EqualTo(11));
+            Assert.That(endDateTime.Day, Is.EqualTo(3));
+        });
+    }
+
+    [Test]
+    public void Calendar_GetClosestWorkday_ForNegativeDays_SkipsRecurringHoliday()
+    {
+        DateTime inputDate = new(2023, 11, 7);
+        _calendar.SetRecurringHoliday(11, 6);
+        var endDateTime = _calendar.GetClosestWorkday(inputDate, -1.5);
+        Assert.Multiple(() =>
+        {
+            Assert.That(endDateTime.Year, Is.EqualTo(2023));
+            Assert.That(endDateTime.Month, Is.EqualTo(11));
+            Assert.That(endDateTime.Day, Is.EqualTo(3));
+        });
+    }
+
+    [Test]
+    public void Calendar_GetClosestWorkday_ForNegativeDays_SkipsHoliday()
+    {
+        DateTime inputDate = new(2023, 11, 7);
+        _calendar.SetHoliday(2023, 11, 6);
+        var endDateTime = _calendar.GetClosestWorkday(inputDate, -1.5);
+        Assert.Multiple(() =>
+        {
+            Assert.That(endDateTime.Year, Is.EqualTo(2023));
+            Assert.That(endDateTime.Month, Is.EqualTo(11));
+            Assert.That(endDateTime.Day, Is.EqualTo(3));
+        });
+    }
+
+    [Test]
+    public void Calendar_GetClosestWorkday_ForPositiveDays_ReturnsCorrectDay()
+    {
+        DateTime inputDate = new(2023, 4, 10);
+        var endDateTime = _calendar.GetClosestWorkday(inputDate, 5.5);
+        Assert.Multiple(() =>
+        {
+            Assert.That(endDateTime.Year, Is.EqualTo(2023));
+            Assert.That(endDateTime.Month, Is.EqualTo(4));
+            Assert.That(endDateTime.Day, Is.EqualTo(17));
+        });
+    }
+
+    [Test]
+    public void Calendar_GetClosestWorkday_ForPositiveDays_SkipsWeekend()
+    {
+        DateTime inputDate = new(2023, 11, 3);
+        var endDateTime = _calendar.GetClosestWorkday(inputDate, 1.5);
+        Assert.Multiple(() =>
+        {
+            Assert.That(endDateTime.Year, Is.EqualTo(2023));
+            Assert.That(endDateTime.Month, Is.EqualTo(11));
+            Assert.That(endDateTime.Day, Is.EqualTo(6));
+        });
+    }
+
+    [Test]
+    public void Calendar_GetClosestWorkday_ForPositiveDays_SkipsRecurringHoliday()
+    {
+        DateTime inputDate = new(2023, 11, 3);
+        _calendar.SetRecurringHoliday(11, 6);
+        var endDateTime = _calendar.GetClosestWorkday(inputDate, 1.5);
+        Assert.Multiple(() =>
+        {
+            Assert.That(endDateTime.Year, Is.EqualTo(2023));
+            Assert.That(endDateTime.Month, Is.EqualTo(11));
+            Assert.That(endDateTime.Day, Is.EqualTo(7));
+        });
+    }
+
+    [Test]
+    public void Calendar_GetClosestWorkday_ForPositiveDays_SkipsHoliday()
+    {
+        DateTime inputDate = new(2023, 11, 3);
+        _calendar.SetHoliday(2023, 11, 6);
+        var endDateTime = _calendar.GetClosestWorkday(inputDate, 1.5);
+        Assert.Multiple(() =>
+        {
+            Assert.That(endDateTime.Year, Is.EqualTo(2023));
+            Assert.That(endDateTime.Month, Is.EqualTo(11));
+            Assert.That(endDateTime.Day, Is.EqualTo(7));
+        });
+    }
+
 }

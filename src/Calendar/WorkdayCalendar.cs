@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Calendar;
 
 public class WorkdayCalendar
@@ -17,43 +19,17 @@ public class WorkdayCalendar
 
     public DateTime GetEndTime(DateTime startDateTime, double workDays)
     {
-        Direction direction = workDays > 0 ? Direction.Forward : Direction.Backward;
-        int incrementalDay = direction == Direction.Forward ? 1 : -1;
-        var remainingTimeSpan = TimeSpan.FromDays(workDays).TotalDays;
-        var endDateTime = startDateTime;
-        while (!IsCurrentWorkday(remainingTimeSpan, direction))
-        {
-            endDateTime = endDateTime.AddDays(incrementalDay);
-            while (!_calendar.IsValidWorkday(endDateTime))
-            {
-                endDateTime = endDateTime.AddDays(incrementalDay);
-            }
-            remainingTimeSpan += -1 * incrementalDay;
-        }
-        var workday = new DateOnly(endDateTime.Year, endDateTime.Month, endDateTime.Day);
-        var resultWorkDay = _workday.GetEndTime(endDateTime, remainingTimeSpan);
-        if (resultWorkDay.EndingWorkdayType == EndingWorkdayType.NextDay)
-        {
+        DateTime endDateTime = _calendar.GetClosestWorkday(startDateTime, workDays);
+        DateOnly workday = new(endDateTime.Year, endDateTime.Month, endDateTime.Day);
+        double remainingTimeSpan = workDays % 1;
+        WorkdayEndTime workdayEndTime = _workday.GetEndTime(endDateTime, remainingTimeSpan);
+        if (workdayEndTime.EndingWorkdayType == EndingWorkdayType.NextDay) {
             workday = _calendar.GetNextWorkday(endDateTime);
         }
-        else if (resultWorkDay.EndingWorkdayType == EndingWorkdayType.PreviousDay)
-        {
+        else if (workdayEndTime.EndingWorkdayType == EndingWorkdayType.PreviousDay) {
             workday = _calendar.GetPreviousWorkday(endDateTime);
         }
 
-        return new DateTime(workday.Year, workday.Month, workday.Day, resultWorkDay.EndTime.Hour, resultWorkDay.EndTime.Minute, resultWorkDay.EndTime.Second);
-    }
-
-    private static bool IsCurrentWorkday(double remainingTimeSpan, Direction direction)
-    {
-        if (direction == Direction.Forward && remainingTimeSpan < 1)
-        {
-            return true;
-        }
-        if (direction == Direction.Backward && remainingTimeSpan > -1)
-        {
-            return true;
-        }
-        return false;
+        return new DateTime(workday.Year, workday.Month, workday.Day, workdayEndTime.EndTime.Hour, workdayEndTime.EndTime.Minute, workdayEndTime.EndTime.Second);
     }
 }

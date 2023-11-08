@@ -65,4 +65,29 @@ public class Calendar {
         return new DateOnly(nextDay.Year, nextDay.Month, nextDay.Day);
     }
 
+    public DateTime GetClosestWorkday(DateTime inputDate, double workDays) {
+        Direction direction = workDays > 0 ? Direction.Forward : Direction.Backward;
+        var remainingTimeSpan = TimeSpan.FromDays(workDays).TotalDays;
+        int incrementalDay = direction == Direction.Forward ? 1 : -1;
+        DateTime endDateTime = inputDate;
+        while (!IsCurrentWorkday(remainingTimeSpan, direction)) {
+            endDateTime = endDateTime.AddDays(incrementalDay);
+            while (!IsValidWorkday(endDateTime)) {
+                endDateTime = endDateTime.AddDays(incrementalDay);
+            }
+            remainingTimeSpan += -1 * incrementalDay;
+        }
+        return endDateTime;
+    }
+
+    private static bool IsCurrentWorkday(double remainingTimeSpan, Direction direction) {
+        if (direction == Direction.Forward && remainingTimeSpan < 1) {
+            return true;
+        }
+        if (direction == Direction.Backward && remainingTimeSpan > -1) {
+            return true;
+        }
+        return false;
+    }
+
 }
