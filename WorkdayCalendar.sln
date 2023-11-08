@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar", "src\Calendar\Calendar.csproj", "{4D3CF7F8-C155-4160-8E0A-5711F26FE14D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "main", "src\main\main.csproj", "{3948D200-EFA6-4103-A3A1-8947A5A599E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5FBC22DB-67AB-4ECA-951D-D3772B757602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar", "test\UnitTests\UnitTests.csproj", "{6C99180A-77F1-44A0-AEF4-78B9983188CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D3CF7F8-C155-4160-8E0A-5711F26FE14D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3CF7F8-C155-4160-8E0A-5711F26FE14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3CF7F8-C155-4160-8E0A-5711F26FE14D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3CF7F8-C155-4160-8E0A-5711F26FE14D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3948D200-EFA6-4103-A3A1-8947A5A599E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3948D200-EFA6-4103-A3A1-8947A5A599E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3948D200-EFA6-4103-A3A1-8947A5A599E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3948D200-EFA6-4103-A3A1-8947A5A599E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C99180A-77F1-44A0-AEF4-78B9983188CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C99180A-77F1-44A0-AEF4-78B9983188CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C99180A-77F1-44A0-AEF4-78B9983188CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C99180A-77F1-44A0-AEF4-78B9983188CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6C99180A-77F1-44A0-AEF4-78B9983188CC} = {5FBC22DB-67AB-4ECA-951D-D3772B757602}
+	EndGlobalSection
+EndGlobal
