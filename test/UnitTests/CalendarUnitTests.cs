@@ -9,6 +9,8 @@ public class CalendarUnitTests
     }
 
     [Test]
+    // Personally I hate redundancy. Prefixing every test with Calendar is overly redundant.
+    // The class is already called CalendarUnitTests, the method prefix adds no value
     public void Calendar_SetInvalidDateForRecurringHoliday_ReturnsFalse() {
         var result = _calendar.SetRecurringHoliday(04, 31);
         Assert.That(result, Is.False);
